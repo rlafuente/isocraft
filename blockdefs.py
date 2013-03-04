@@ -5,18 +5,18 @@ BLOCKDEFS = {
   3: color(116, 81, 55),    # dirt
   4: color(165, 165, 165),  # cobblestone
   5: color(178, 144, 92),   # oak planks
-  9: color(64, 64, 64),
-  12: color(64, 64, 64),
-  17: color(64, 64, 64),
-  18: color(64, 64, 64),
-  20: color(64, 64, 64),
-  25: color(64, 64, 64),
-  26: color(64, 64, 64),
-  27: color(64, 64, 64),
-  28: color(64, 64, 64),
-  31: color(64, 64, 64),
-  33: color(64, 64, 64),
-  35: color(64, 64, 64),
+  9: color(51, 75, 255),
+  12: color(210, 204, 148),
+  17: color(138, 112, 71),
+  18: color(164, 164, 164),
+  20: color(170, 182, 184),
+  25: color(140, 86, 69),
+  26: color(177, 57, 53),
+  27: color(201, 135, 28),
+  28: color(137, 117, 88),
+  31: color(64, 64, 64), # não existe
+  33: color(64, 64, 64), # não existe
+  35: color(220, 140, 162), # lã, múltiplas cores
   37: color(64, 64, 64),
   38: color(64, 64, 64),
   43: color(64, 64, 64),
