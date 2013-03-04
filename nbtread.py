@@ -1,6 +1,7 @@
 from nbt import nbt
-nbtfile = nbt.NBTFile("Terrinha.schematic",'rb')
-print nbtfile
+import sys
+
+nbtfile = nbt.NBTFile(sys.argv[1],'rb')
 
 height = nbtfile['Height'].value
 length = nbtfile['Length'].value
@@ -9,8 +10,8 @@ width = nbtfile['Width'].value
 blocks = nbtfile['Blocks']
 
 for x in range(width):
-    for y in range(height):
-        for z in range(length):
+    for z in range(length):
+        for y in range(height):    
             blocktype = blocks.pop()
             print '(%d,%d,%d): %d' % (x, y, z, blocktype)
 

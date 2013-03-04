@@ -1,5 +1,6 @@
 # change these!
 
+INPUT_FILE = 'country.txt'
 size(480, 540)
 BLOCK_SIZE = 5
 ORIGIN_X = 150
@@ -96,7 +97,7 @@ def draw():
     translate(40, 40)
     # and draw the blocks
     
-    lines = list(open('coords.txt', 'r').readlines())
+    lines = list(open(INPUT_FILE, 'r').readlines())
     # last line holds the coordinates
     max_x, max_y, max_z, bt = parse_line(lines[-1])
     
@@ -112,6 +113,7 @@ def draw():
         
 
 
+    # we do a separate loop so we can draw them in order
     for x in range(max_x):
         for y in range(max_y):
             for z in range(max_z,-1,-1):
