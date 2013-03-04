@@ -1,0 +1,124 @@
+# change these!
+
+size(480, 540)
+BLOCK_SIZE = 5
+ORIGIN_X = 150
+ORIGIN_Y = 100
+
+from random import randint
+import numpy as np
+
+colormode(RGB)
+colorrange(255)
+
+bs = BLOCK_SIZE
+
+COLORS = {
+  1: color(143, 143, 143),  # stone
+  2: color(116, 81, 55),    # dirt with grass      
+  3: color(116, 81, 55),    # dirt
+  4: color(165, 165, 165),  # cobblestone
+  5: color(178, 144, 92),   # oak planks
+  13: color(64, 64, 64),
+  16: color(64, 64, 64),
+  50: color(64, 64, 64),
+  67: color(64, 64, 64),
+  20: color(64, 64, 64),
+  26: color(64, 64, 64),
+  }
+
+def block(x,y, blocktype):
+    '''
+    draw an isometric square prism; x,y are the coordinates of
+    the BOTTOM-CENTER corner, z is the height
+    '''
+    
+    if blocktype in COLORS:
+        blockcolor = COLORS[blocktype]
+    else:
+        blockcolor = color(64, 64, 64)
+    
+    z = bs * 2.5
+    
+    # no strokes in the inside
+    nostroke()
+
+    # LEFT FACE
+    # first, set the color
+    c = color(blockcolor)
+    fill(c)
+    # and draw the path
+    beginpath(x, y)
+    lineto(x-bs*2, y-bs)
+    lineto(x-bs*2, y-bs-z)
+    lineto(x, y-z)
+    endpath()
+
+    # RIGHT FACE
+    # darker
+    c = color(blockcolor)
+    c.brightness -= .075
+    fill(c)
+    beginpath(x, y)
+    lineto(x+bs*2, y-bs)
+    lineto(x+bs*2, y-bs-z)
+    lineto(x, y-z)
+    endpath()
+
+    # TOP FACE
+    # 
+    c = color(blockcolor)
+    c.brightness -= .15
+    fill(c)
+    beginpath(x, y-z)
+    lineto(x+bs*2, y-bs-z)
+    lineto(x, y-bs*2-z)
+    lineto(x-bs*2, y-bs-z)
+    endpath()
+
+def setup():
+    pass
+
+def parse_line(line):
+    coordtuple, blocktype = line.split(':')
+    x, y, z = coordtuple.strip('()').split(',')
+    x = int(x)
+    y = int(y)
+    z = int(z)
+    blocktype = int(blocktype.strip())
+    return x, y, z, blocktype
+
+def draw():
+    # white background
+    background(1,1,1)
+
+    # start from 40, 40
+    translate(40, 40)
+    # and draw the blocks
+    
+    lines = list(open('coords.txt', 'r').readlines())
+    # last line holds the coordinates
+    max_x, max_y, max_z, bt = parse_line(lines[-1])
+    
+    matrix = np.empty((max_x+1, max_y+1, max_z+1))
+    
+    TYPES = []
+    for line in lines:
+        x,y,z,blocktype = parse_line(line)
+        matrix[x,y,z] = blocktype
+        TYPES.append(blocktype)
+    print set(TYPES)
+    del lines
+        
+
+
+    for x in range(max_x):
+        for y in range(max_y):
+            for z in range(max_z,-1,-1):
+                blocktype = matrix[x,y,z]
+                if blocktype:
+                    px = ORIGIN_X + (x-y) * (2*bs)
+                    py = ORIGIN_Y + (x+y) * bs + z*bs*2
+                    block(px, py, blocktype)    
+    
+                    
