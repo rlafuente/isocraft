@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 import sys
 import numpy as np
+from nbt import nbt
 import shoebot
 
 from blockdefs import BLOCKDEFS
-
 
 # change these!
 
@@ -81,36 +81,48 @@ def parse_line(line):
     blocktype = int(blocktype.strip())
     return x, y, z, blocktype
 
+def get_block_from_nbt(x, y, z, blocks):
+    # http://www.minecraftforum.net/topic/16084-baezons-redstone-simulator-v22/page__st__40#entry364309
+    # this formula saved my day!
+    # i changed it to correspond to YZX order, according to NBT/Anvil filespec
+    return blocks[x + z*width + y*length*width]
 
 if __name__ == '__main__':
-    # white background
-    bot.background(255, 255, 255)
 
-    # start from 40, 40
-    # FIXME: following line exposes a Shoebot bug
-    # bot.translate(40, 40)
-    # and draw the blocks
-    lines = list(open(INPUT_FILE, 'r').readlines())
-    # last line holds the coordinates
-    max_x, max_y, max_z, bt = parse_line(lines[-1])
-    
-    # set bot size
+    # read schematics file and determine attributes
+    nbtfile = nbt.NBTFile(INPUT_FILE,'rb')
+    height = nbtfile['Height'].value
+    length = nbtfile['Length'].value
+    width = nbtfile['Width'].value
+    blocks = nbtfile['Blocks']
+    max_x, max_y, max_z = (width, height, length)
+
+    # set up Shoebot
     w = max_z*bs*2 + max_x*bs*2 + padding*4*bs
     # FIXME: reliably get proper height
     h = max_z*bs + max_x*bs + 120
     bot.size(w,h) 
+    bot.background(255, 255, 255)
+    # start from 40, 40
+    # FIXME: following line exposes a Shoebot bug
+    # bot.translate(40, 40)
     
+    # determine origin point
     origin_x = padding*2*bs + max_z*bs*2
     origin_y = 120
-    matrix = np.empty((max_x+1, max_y+1, max_z+1))
-    
+
+    # create matrix and populate it with the block values
+    # also make a list of block types
     TYPES = []
-    for line in lines:
-        x,y,z,blocktype = parse_line(line)
-        matrix[x,y,z] = blocktype
-        TYPES.append(blocktype)
+    matrix = np.empty((max_x+1, max_y+1, max_z+1))
+    for x in range(width):
+        for y in range(height):    
+            for z in range(length):
+                blocktype = get_block_from_nbt(x, y, z, blocks)
+                matrix[x,y,z] = blocktype
+                TYPES.append(blocktype)
+    TYPES.sort()
     print set(TYPES)
-    del lines
         
     # we do a separate loop so we can draw them in order
     for y in range(max_y):
