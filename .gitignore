@@ -1,0 +1,7 @@
+*.svg
+venv
+*.pdf
+*.png
+outputs
+schematics
+shoebot
