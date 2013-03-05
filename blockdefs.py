@@ -39,9 +39,9 @@ BLOCKDEFS = {
   72: (169, 139, 85),  # wooden pressure plate
   76: (237, 94, 19),   # redstone torch (active)
   79: (133, 180, 255), # ice
-  82: (0,0,0)          # clay
+  82: (0,0,0),         # clay
   85: (170, 146, 109), # fence
-  88: (0,0,0)	       # soul sand
+  88: (0,0,0),         # soul sand
   89: (211, 166, 101), # glowstone
   96: (64, 64, 64),    # trapdoor
   102: (193, 224, 229),# glass pane
