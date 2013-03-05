@@ -30,19 +30,19 @@ BLOCKDEFS = {
   67: color(154, 154, 154),
   68: color(168, 137, 82),
   69: color(142, 112, 67),
-  70: color(137, 137, 137),
-  71: color(205, 205, 205),
-  72: color(169, 139, 85),
-  76: color(237, 94, 19),
-  79: color(133, 180, 255),
-  85: color(170, 146, 109),
-  89: color(211, 166, 101),
-  96: color(64, 64, 64), # não existe
-  102: color(193, 224, 229),
-  126: color(64, 64, 64), # não existe
-  131: color(162, 132, 82),
-  134: color(64, 64, 64), # não existe
-  139: color(64, 64, 64), # não existe
-  140: color(125, 73, 58),
+  70: color(137, 137, 137), # stone pressure plate
+  71: color(205, 205, 205), # iron door
+  72: color(169, 139, 85), # wooden pressure plate
+  76: color(237, 94, 19), # redstone torch (active)
+  79: color(133, 180, 255), # ice
+  85: color(170, 146, 109), # fence
+  89: color(211, 166, 101), # glowstone
+  96: color(64, 64, 64), # trapdoor
+  102: color(193, 224, 229), # glass pane
+  126: color(64, 64, 64), # wooden slab
+  131: color(162, 132, 82),	# tripwire hook
+  134: color(64, 64, 64), # spruce wood stairs
+  139: color(64, 64, 64), # cobblestone wall
+  140: color(125, 73, 58), # flower pot
   143: color(64, 64, 64), # não existe
   }
