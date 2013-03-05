@@ -1,0 +1,13 @@
+How to use this:
+
+1. Find a schematic file or export a part of your world in MCEdit.
+2. Run the following commands:
+
+    python nbtread.py house.schematic > house.txt
+    sbot blocks.bot -o blocks.png
+
+TODO
+
+1. Turn shoebot script into python file (for argparse support)
+2. Figure out how blocks are laid out in an NBT file
+3. Complete the block color dictionary
