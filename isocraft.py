@@ -17,6 +17,7 @@ ORIGIN_X = 150
 ORIGIN_Z = 100
 BRIGHTNESS_STEP = 0.05
 padding = 1
+rotation = 0
 
 bot.colormode(bot.RGB)
 bot.colorrange(255)
@@ -124,11 +125,24 @@ if __name__ == '__main__':
     TYPES.sort()
     print set(TYPES)
         
+    # apply rotation
+    # FIXME: This does not work :(
+    if rotation:
+        from rotation import rotation_matrix
+        from math import pi
+        axis = [0,1,0]
+        theta = rotation * pi/2
+        matrix = rotation_matrix(axis, theta, matrix)
+        max_x, max_y, max_z = max_z, max_x, max_y
+
     # we do a separate loop so we can draw them in order
     for y in range(max_y):
         for x in range(max_x):
             for z in range(max_z):
-                blocktype = matrix[x,y,z]
+                try:
+                    blocktype = matrix[x,y,z]
+                except IndexError:
+                    continue
                 if blocktype:
                     px = origin_x + (x-z) * (2*bs)
                     pz = origin_y + (x+z) * bs - y*bs*2

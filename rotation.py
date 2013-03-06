@@ -3,7 +3,7 @@ import numpy as np
 from math import cos, sin, sqrt
 from scipy import weave
 
-def rotation_matrix(axis, theta, mat = None):
+def rotation_matrix_weave(axis, theta, mat = None):
     if mat == None:
         mat = np.eye(3,3)
 
@@ -32,3 +32,12 @@ def rotation_matrix(axis, theta, mat = None):
 
     return mat
 
+def rotation_matrix(axis, theta, mat):
+    axis = np.array(axis)
+    axis = axis/sqrt(np.dot(axis, axis))
+    a = cos(theta/2.)
+    b, c, d = -axis*sin(theta/2.)
+
+    return np.array([[a*a+b*b-c*c-d*d, 2*(b*c-a*d), 2*(b*d+a*c)],
+                  [2*(b*c+a*d), a*a+c*c-b*b-d*d, 2*(c*d-a*b)],
+                  [2*(b*d-a*c), 2*(c*d+a*b), a*a+d*d-b*b-c*c]])
