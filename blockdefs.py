@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+# TODO: Add variable value blocks (like wool)
+#       See http://www.minecraftwiki.net/wiki/Block_id#Data
+# TODO: Expand definition to include texture or more than 1 color
+
 BLOCKDEFS = {
   1: (143, 143, 143),  # stone
   2: (116, 81, 55),    # dirt with grass      
