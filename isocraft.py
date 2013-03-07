@@ -62,13 +62,46 @@ def get_block_from_nbt(x, y, z, blocks):
     return blocks[x + z*width + y*length*width]
 
 def remove_invisible_blocks(max_x, max_y, max_z, matrix):
+    # NOT WORKING YET :(
     ray_matrix = np.empty((max_x+1, max_y+1, max_z+1))
-    for x in width:
-        for y in height:
+    # draw a box covering the whole area
+    for x in range(max_x+1):
+        for y in range(max_y+1):
             ray_matrix[x,y,0] = 5 # wood block
+    for x in range(max_x+1):
+        for z in range(max_z+1):
+            ray_matrix[x,max_y,z] = 5 
+    for y in range(max_y+1):
+        for z in range(max_z+1):
+            ray_matrix[0,y,z] = 5
 
-    
+    # send a line from the observer's eye
+    # once it bumps into a block, remove all the 
+    # following blocks from the original matrix
+    for index, v in np.ndenumerate(ray_matrix):
+        if not v:
+            continue
+        x,y,z = index
+        while x < max_x and y >= 0 and z < max_z:
+            # FIXME: This loop doesn't find any block
+            # get next block
+            if matrix[x,y,z] and found:
+                # invisible block, remove it
+                print "invisible block, remove it"
+                found = True
+                matrix[x,y,z] = 0
+            elif matrix[x,y,z]:
+                # we found a block, next blocks will be removed
+                print "we found a block, next blocks will be removed"
+                found = True
+            else:
+                # no block, go on
+                pass
+            x += 1
+            y -= 1
+            z += 1
 
+    return matrix
 
 if __name__ == '__main__':
     import argparse
@@ -118,6 +151,12 @@ if __name__ == '__main__':
     TYPES = []
     matrix = np.empty((max_x+1, max_y+1, max_z+1))
     datamatrix = np.empty((max_x+1, max_y+1, max_z+1))
+
+    ##########
+    matrix = remove_invisible_blocks(max_x, max_y, max_z, matrix)
+    print 'Yay!'
+    ##########
+
     i = 0
     for x in range(width):
         for y in range(height):    
