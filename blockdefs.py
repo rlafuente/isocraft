@@ -6,8 +6,6 @@
 
 '''
 Blocks TODO:
-Unsupported block: 130
-Unsupported block: 145
 '''
 
 BLOCKDEFS = {
@@ -116,7 +114,15 @@ BLOCKDEFS = {
   88: (91, 71, 58),    # soul sand
   89: (211, 166, 101), # glowstone
   96: (178, 144, 92),  # trapdoor
+  100: '#AB2826',      # huge red mushroom
+  101: '#585655',      # iron bars
   102: (193, 224, 229),# glass pane
+  103: '#828822',      # melon
+  104: '#80BC55',      # pumpkin stem
+  105: '#8CBF5E',      # melon stem
+  106: '#26600D',      # vines
+  107: '#352B1A',      # fence gate
+  108: '#784639',      # brick stairs
   116: '#53A492',      # enchantment table
   117: '#3F3A22',      #brewing stand
   118: '#1E1E1E',      # cauldron
