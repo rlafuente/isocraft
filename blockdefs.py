@@ -24,12 +24,27 @@ BLOCKDEFS = {
   2: (116, 81, 55),    # dirt with grass      
   3: (116, 81, 55),    # dirt
   4: (165, 165, 165),  # cobblestone
-  5: (178, 144, 92),   # wood planks (see data)
+  5: {                 # wood planks
+  		0: '#B4905A',    # oak
+        1: '#534028',    # spruce
+        2: '#D7C185',    # birch
+        3: '#725035',    # jungle
+      },
   8: (51, 75, 255),    # water  
   9: (51, 75, 255),    # stationary water
   12: (210, 204, 148), # sand
-  17: (138, 112, 71),  # wood (see data)
-  18: (164, 164, 164), # leaves (see data)
+  17: {                # wood
+        0: '#6B5635',  # oak
+        1: '#2F1E0B',  # spruce
+        2: '#EBEAE0',  # birch
+        3: '#57491A',  # jungle
+      },
+  18: {                # leaves
+        0: '#C5D1C0',  # oak
+        1: '#758E75',  # pine or spruce
+        2: '#8B987D',  # birch
+        3: '#145D02',  # jungle
+      },
   20: (170, 182, 184), # glass
   24: (210, 204, 148), # sandstone (see data)
   25: (140, 86, 69),   # note block
