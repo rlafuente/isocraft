@@ -8,15 +8,6 @@
 Blocks TODO:
 Unsupported block: 130
 Unsupported block: 145
-Unsupported block: 23
-Unsupported block: 42
-Unsupported block: 54
-Unsupported block: 58
-Unsupported block: 77
-Unsupported block: 116
-Unsupported block: 117
-Unsupported block: 118
-Unsupported block: 124
 '''
 
 BLOCKDEFS = {
@@ -46,6 +37,7 @@ BLOCKDEFS = {
        3: '#145D02',     # jungle
       },
   20: (170, 182, 184), # glass
+  23: '#676767',       # dispenser
   24: {                # sandstone
        0: '#E3DBAB',     # normal
        1: '#D1C991',     # chiseled
@@ -76,24 +68,38 @@ BLOCKDEFS = {
        15: (28, 25, 25)},  # black
   37: (234, 242, 2),   # dandelion
   38: (247, 4, 15),    # rose
-  43: {                # double slabs (see data)
-       0: '#9AA1A3',    # stone
-       1: '#DBD4A4',    # sandstone
-       2: '#A98B55',    # wooden
-       3: '#7F7F7F',    # cobblestone
-       4: '#9E8882',    # brick
-       5: '#808080',    # stone brick
-       6: '#291519',    # nether brick
-       7: '#EEECE5',    # quartz
-       8: '#A6A6A6',    # smooth stone
-       9: '#DFD8A8',    # smooth sandstone
+  42: '#D4D4D4',       # block of iron
+  43: {                # double slabs
+       0: '#9AA1A3',     # stone
+       1: '#DBD4A4',     # sandstone
+       2: '#A98B55',     # wooden
+       3: '#7F7F7F',     # cobblestone
+       4: '#9E8882',     # brick
+       5: '#808080',     # stone brick
+       6: '#291519',     # nether brick
+       7: '#EEECE5',     # quartz
+       8: '#A6A6A6',     # smooth stone
+       9: '#DFD8A8',     # smooth sandstone
       },
-  44: (165, 165, 165), # slabs (see data)
+  44: {                # slabs (same as double slabs)
+       0: '#9AA1A3',     # stone
+       1: '#DBD4A4',     # sandstone
+       2: '#A98B55',     # wooden
+       3: '#7F7F7F',     # cobblestone
+       4: '#9E8882',     # brick
+       5: '#808080',     # stone brick
+       6: '#291519',     # nether brick
+       7: '#EEECE5',     # quartz
+       8: '#A6A6A6',     # smooth stone
+       9: '#DFD8A8',     # smooth sandstone
+      },
   47: (172, 139, 89),  # bookshelf
   49: (50, 50, 50),    # obsidian
   50: (255, 143, 0),   # torch
   53: (186, 151, 97),  # oak wood stairs
+  54: '#956820',       # chest
   56: (120, 189, 225), # diamond ore
+  58: '#6F482B',       # crafting table
   61: (137, 137, 137), # furnace
   64: (150, 120, 61),  # wooden door
   67: (154, 154, 154), # cobblestone stairs
@@ -103,6 +109,7 @@ BLOCKDEFS = {
   71: (205, 205, 205), # iron door
   72: (169, 139, 85),  # wooden pressure plate
   76: (237, 94, 19),   # redstone torch (active)
+  77: '#818181',       # stone button
   79: (133, 180, 255), # ice
   82: (119, 169, 255), # clay
   85: (170, 146, 109), # fence
@@ -110,12 +117,18 @@ BLOCKDEFS = {
   89: (211, 166, 101), # glowstone
   96: (178, 144, 92),  # trapdoor
   102: (193, 224, 229),# glass pane
+  116: '#53A492',      # enchantment table
+  117: '#3F3A22',      #brewing stand
+  118: '#1E1E1E',      # cauldron
+  124: '#CDAF80',      # redstone lamp
   126: (178, 144, 92), # wooden slab
+  130: '#2A3C3E',      # ender chest
   131: (162, 132, 82), # tripwire hook
   134: (178, 144, 92), # spruce wood stairs
   139: (165, 165, 165),# cobblestone wall
   140: (125, 73, 58),  # flower pot
   143: (178, 144, 92), # wooden button
+  145: '#423E3E',      # anvil
   }
 
 BLOCKS_WITH_DATA = [k for k in BLOCKDEFS if type(BLOCKDEFS[k]) == dict]
