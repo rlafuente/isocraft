@@ -25,28 +25,32 @@ BLOCKDEFS = {
   3: (116, 81, 55),    # dirt
   4: (165, 165, 165),  # cobblestone
   5: {                 # wood planks
-  		0: '#B4905A',    # oak
-        1: '#534028',    # spruce
-        2: '#D7C185',    # birch
-        3: '#725035',    # jungle
-      },
+      0: '#B4905A',      # oak
+      1: '#534028',      # spruce
+      2: '#D7C185',      # birch
+      3: '#725035',      # jungle
+     },
   8: (51, 75, 255),    # water  
   9: (51, 75, 255),    # stationary water
   12: (210, 204, 148), # sand
   17: {                # wood
-        0: '#6B5635',  # oak
-        1: '#2F1E0B',  # spruce
-        2: '#EBEAE0',  # birch
-        3: '#57491A',  # jungle
+       0: '#6B5635',     # oak
+       1: '#2F1E0B',     # spruce
+       2: '#EBEAE0',     # birch
+       3: '#57491A',     # jungle
       },
   18: {                # leaves
-        0: '#C5D1C0',  # oak
-        1: '#758E75',  # pine or spruce
-        2: '#8B987D',  # birch
-        3: '#145D02',  # jungle
+       0: '#C5D1C0',     # oak
+       1: '#758E75',     # pine or spruce
+       2: '#8B987D',     # birch
+       3: '#145D02',     # jungle
       },
   20: (170, 182, 184), # glass
-  24: (210, 204, 148), # sandstone (see data)
+  24: {                # sandstone
+       0: '#E3DBAB',     # normal
+       1: '#D1C991',     # chiseled
+       2: '#DDD4A5',     # smooth
+      },
   25: (140, 86, 69),   # note block
   26: (177, 57, 53),   # bed
   27: (201, 135, 28),  # powered rail
@@ -72,7 +76,18 @@ BLOCKDEFS = {
        15: (28, 25, 25)},  # black
   37: (234, 242, 2),   # dandelion
   38: (247, 4, 15),    # rose
-  43: (172, 172, 172), # double slabs (see data)
+  43: {                # double slabs (see data)
+       0: '#9AA1A3',    # stone
+       1: '#DBD4A4',    # sandstone
+       2: '#A98B55',    # wooden
+       3: '#7F7F7F',    # cobblestone
+       4: '#9E8882',    # brick
+       5: '#808080',    # stone brick
+       6: '#291519',    # nether brick
+       7: '#EEECE5',    # quartz
+       8: '#A6A6A6',    # smooth stone
+       9: '#DFD8A8',    # smooth sandstone
+      },
   44: (165, 165, 165), # slabs (see data)
   47: (172, 139, 89),  # bookshelf
   49: (50, 50, 50),    # obsidian
