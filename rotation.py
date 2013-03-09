@@ -3,10 +3,7 @@ import numpy as np
 from math import cos, sin, sqrt
 from scipy import weave
 
-def rotation_matrix_weave(axis, theta, mat = None):
-    if mat == None:
-        mat = np.eye(3,3)
-
+def rotation_matrix_weave(axis, theta, mat):
     support = "#include <math.h>"
     code = """
         double x = sqrt(axis[0] * axis[0] + axis[1] * axis[1] + axis[2] * axis[2]);
@@ -27,9 +24,7 @@ def rotation_matrix_weave(axis, theta, mat = None):
         mat[3*2 + 1] = 2*(c*d+a*b);
         mat[3*2 + 2] = a*a+d*d-b*b-c*c;
     """
-
     weave.inline(code, ['axis', 'theta', 'mat'], support_code = support, libraries = ['m'])
-
     return mat
 
 def rotation_matrix(axis, theta, mat):
@@ -41,3 +36,4 @@ def rotation_matrix(axis, theta, mat):
     return np.array([[a*a+b*b-c*c-d*d, 2*(b*c-a*d), 2*(b*d+a*c)],
                   [2*(b*c+a*d), a*a+c*c-b*b-d*d, 2*(c*d-a*b)],
                   [2*(b*d-a*c), 2*(c*d+a*b), a*a+d*d-b*b-c*c]])
+

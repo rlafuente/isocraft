@@ -62,6 +62,7 @@ def get_block_from_nbt(x, y, z, blocks):
     return blocks[x + z*width + y*length*width]
 
 def remove_invisible_blocks(max_x, max_y, max_z, matrix):
+    '''Removes all blocks that are invisible to the observer'''
     # NOT WORKING YET :(
     ray_matrix = np.empty((max_x+1, max_y+1, max_z+1))
     # draw a box covering the whole area
@@ -103,6 +104,15 @@ def remove_invisible_blocks(max_x, max_y, max_z, matrix):
 
     return matrix
 
+def rotate_matrix(matrix, angle=0):
+    if not angle:
+        return matrix
+    # rot90 operates on the first 2 axes, so we switch them for Y rotation
+    matrix = np.swapaxes(matrix, 1,2)
+    matrix = np.rot90(matrix, angle/90)
+    matrix = np.swapaxes(matrix, 1,2)
+    return matrix
+
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
@@ -134,7 +144,6 @@ if __name__ == '__main__':
     # FIXME: reliably get proper height from the y value
     h = max_z*bs + max_x*bs + 120
     data = nbtfile['Data']
-
 
     # set up Shoebot
     bot = shoebot.sbot.init_bot(outputfile=outfile) 
@@ -173,16 +182,8 @@ if __name__ == '__main__':
         if t and t not in BLOCKDEFS:
             print 'Unsupported block: %d' % t
     
-        
     # apply rotation
-    # FIXME: This does not work :(
-    if args.rotation:
-        from rotation import rotation_matrix
-        from math import pi
-        axis = [0,1,0]
-        theta = rotation * pi/2
-        matrix = rotation_matrix(axis, theta, matrix)
-        max_x, max_y, max_z = max_z, max_x, max_y
+    matrix = rotate_matrix(matrix, args.rotation)
 
     # we do a separate loop so we can draw them in order
     for y in range(max_y):
@@ -201,4 +202,3 @@ if __name__ == '__main__':
                 i += 1
     
     bot.finish()
-                    
