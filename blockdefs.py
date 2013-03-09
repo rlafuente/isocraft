@@ -123,8 +123,15 @@ BLOCKDEFS = {
   106: '#26600D',      # vines
   107: '#352B1A',      # fence gate
   108: '#784639',      # brick stairs
+  109: '#636363',      # stone brick stairs
+  110: '#695E61',      # mycelium
+  111: '#0C5F14',      # lily pad
+  112: '#251216',      # nether brick
+  113: '#2C2527',      # nether brick fence
+  114: '#251216',      # nether brick stairs
+  115: '#751714',      # nether wart
   116: '#53A492',      # enchantment table
-  117: '#3F3A22',      #brewing stand
+  117: '#3F3A22',      # brewing stand
   118: '#1E1E1E',      # cauldron
   124: '#CDAF80',      # redstone lamp
   126: (178, 144, 92), # wooden slab
