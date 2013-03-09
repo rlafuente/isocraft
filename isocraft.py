@@ -15,9 +15,9 @@ def draw_block(x, y, blocktype, blockdata, bot):
     
     if blocktype in BLOCKDEFS:
         if blocktype in BLOCKS_WITH_DATA:
-            blockcolor = bot.color(*BLOCKDEFS[blocktype][blockdata])
+            blockcolor = bot.color(BLOCKDEFS[blocktype][blockdata])
         else:
-            blockcolor = bot.color(*BLOCKDEFS[blocktype])
+            blockcolor = bot.color(BLOCKDEFS[blocktype])
     else:
         blockcolor = bot.color(50, 0, 0)
     
