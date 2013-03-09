@@ -4,6 +4,21 @@
 #       See http://www.minecraftwiki.net/wiki/Block_id#Data
 # TODO: Expand definition to include texture or more than 1 color
 
+'''
+Blocks TODO:
+Unsupported block: 130
+Unsupported block: 145
+Unsupported block: 23
+Unsupported block: 42
+Unsupported block: 54
+Unsupported block: 58
+Unsupported block: 77
+Unsupported block: 116
+Unsupported block: 117
+Unsupported block: 118
+Unsupported block: 124
+'''
+
 BLOCKDEFS = {
   1: (143, 143, 143),  # stone
   2: (116, 81, 55),    # dirt with grass      
