@@ -104,6 +104,21 @@ def remove_invisible_blocks(max_x, max_y, max_z, matrix):
 
     return matrix
 
+def remove_invisible_blocks_lazy(max_x, max_y, max_z, matrix):
+    for index, v in np.ndenumerate(matrix):
+        if not v:
+            continue
+        x,y,z = index
+        leftblock = matrix[x+1, y, z]
+        rightblock = matrix[x, y, z+1]
+        topblock = matrix[x, y+1, z]
+        if leftblock and rightblock and topblock:
+            # occluded
+            matrix[x,y,z] = 0
+    return matrix
+
+
+
 def rotate_matrix(matrix, angle=0):
     if not angle:
         return matrix
@@ -162,7 +177,7 @@ if __name__ == '__main__':
     datamatrix = np.empty((max_x+1, max_y+1, max_z+1))
 
     ##########
-    matrix = remove_invisible_blocks(max_x, max_y, max_z, matrix)
+    matrix = remove_invisible_blocks_lazy(max_x, max_y, max_z, matrix)
     print 'Yay!'
     ##########
 
