@@ -13,9 +13,16 @@ def draw_block(x, y, blocktype, blockdata, bot):
     the BOTTOM-CENTER corner, z is the height
     '''
     
+    blocktype = int(blocktype)
+    blockdata = int(blockdata)
     if blocktype in BLOCKDEFS:
         if blocktype in BLOCKS_WITH_DATA:
-            blockcolor = bot.color(BLOCKDEFS[blocktype][blockdata])
+            try:
+                blockcolor = bot.color(BLOCKDEFS[blocktype][blockdata])
+            except:
+                print blocktype
+                print blockdata
+                raise
         else:
             blockcolor = bot.color(BLOCKDEFS[blocktype])
     else:
@@ -109,9 +116,12 @@ def remove_invisible_blocks_lazy(max_x, max_y, max_z, matrix):
         if not v:
             continue
         x,y,z = index
-        leftblock = matrix[x+1, y, z]
-        rightblock = matrix[x, y, z+1]
-        topblock = matrix[x, y+1, z]
+        try:
+            leftblock = matrix[x+1, y, z]
+            rightblock = matrix[x, y, z+1]
+            topblock = matrix[x, y+1, z]
+        except IndexError:
+            continue
         if leftblock and rightblock and topblock:
             # occluded
             matrix[x,y,z] = 0
@@ -137,7 +147,7 @@ if __name__ == '__main__':
     parser.add_argument("-r", "--rotation", help="set rotation (0, 90, 180 or 270)", dest="rotation", type=int, default=0)
     parser.add_argument("-p", "--padding", help="set margin (1 = half block width)", dest="padding", type=int, default=1)
     parser.add_argument("-b", "--blocksize", help="individual block size in px (default is 5)", dest="blocksize", type=int, default=1)
-    parser.add_argument("-d", "--darken", help="amount to darken each block face (default is 0.05)", dest="darken", type=int, default=0.05)
+    parser.add_argument("-d", "--darken", help="amount to darken each block face (default is 0.05)", dest="darken", type=float, default=0.05)
     args, extra = parser.parse_known_args()
 
     bs = args.blocksize
@@ -157,7 +167,7 @@ if __name__ == '__main__':
     max_x, max_y, max_z = (width, height, length)
     w = max_z*bs*2 + max_x*bs*2 + padding*4*bs
     # FIXME: reliably get proper height from the y value
-    h = max_z*bs + max_x*bs + 120
+    h = max_z*bs + max_x*bs + 400
     data = nbtfile['Data']
 
     # set up Shoebot
@@ -168,7 +178,7 @@ if __name__ == '__main__':
     bot.background(255, 255, 255)
     # determine origin point
     origin_x = padding*2*bs + max_z*bs*2
-    origin_y = 120
+    origin_y = 400
 
     # create matrix and populate it with the block values
     # also make a list of block types
@@ -177,8 +187,8 @@ if __name__ == '__main__':
     datamatrix = np.empty((max_x+1, max_y+1, max_z+1))
 
     ##########
-    matrix = remove_invisible_blocks_lazy(max_x, max_y, max_z, matrix)
-    print 'Yay!'
+    # matrix = remove_invisible_blocks_lazy(max_x, max_y, max_z, matrix)
+    # print 'Yay!'
     ##########
 
     i = 0
@@ -186,7 +196,8 @@ if __name__ == '__main__':
         for y in range(height):    
             for z in range(length):
                 blocktype = get_block_from_nbt(x, y, z, blocks)
-                blockdata = data[i]
+                blockdata = get_block_from_nbt(x, y, z, data)
+                # blockdata = data[i]
                 matrix[x,y,z] = blocktype
                 datamatrix[x,y,z] = blockdata
                 TYPES.append(blocktype)
@@ -206,11 +217,11 @@ if __name__ == '__main__':
             for z in range(max_z):
                 try:
                     blocktype = matrix[x,y,z]
+                    blockdata = datamatrix[x,y,z]
                 except IndexError:
                     i += 1
                     continue
                 if blocktype:
-                    blockdata = datamatrix[x,y,z]
                     px = origin_x + (x-z) * (2*bs)
                     pz = origin_y + (x+z) * bs - y*bs*2
                     draw_block(px, pz, blocktype, blockdata, bot)
