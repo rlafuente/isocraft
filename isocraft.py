@@ -4,6 +4,10 @@ import sys, os
 import numpy as np
 from nbt import nbt
 import shoebot
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 
 from blockdefs import BLOCKDEFS, BLOCKS_WITH_DATA
 
@@ -20,9 +24,8 @@ def draw_block(x, y, blocktype, blockdata, bot):
             try:
                 blockcolor = bot.color(BLOCKDEFS[blocktype][blockdata])
             except:
-                print blocktype
-                print blockdata
-                raise
+                logging.error('Unsupported block found: type %d, data %d' % (blocktype, blockdata))
+                blockcolor = bot.color(50, 0, 0)
         else:
             blockcolor = bot.color(BLOCKDEFS[blocktype])
     else:
@@ -70,7 +73,6 @@ def get_block_from_nbt(x, y, z, blocks):
 
 def remove_invisible_blocks(max_x, max_y, max_z, matrix):
     '''Removes all blocks that are invisible to the observer'''
-    # NOT WORKING YET :(
     ray_matrix = np.empty((max_x+1, max_y+1, max_z+1))
     # draw a box covering the whole area
     for x in range(max_x+1):
@@ -83,32 +85,38 @@ def remove_invisible_blocks(max_x, max_y, max_z, matrix):
         for z in range(max_z+1):
             ray_matrix[0,y,z] = 5
 
+    removed_count = 0
     # send a line from the observer's eye
     # once it bumps into a block, remove all the 
     # following blocks from the original matrix
     for index, v in np.ndenumerate(ray_matrix):
-        if not v:
+        if not v > 0:
             continue
         x,y,z = index
-        while x < max_x and y >= 0 and z < max_z:
-            # FIXME: This loop doesn't find any block
+        logging.debug("BlockRemover: Analysing block (%d, %d, %d)" % (x,y,z))
+        found = False
+        while 1:
             # get next block
             if matrix[x,y,z] and found:
                 # invisible block, remove it
-                print "invisible block, remove it"
+                logging.debug("BlockRemover:   Removing invisible block (%d, %d, %d)" % (x,y,z))
                 found = True
                 matrix[x,y,z] = 0
+                removed_count += 1
             elif matrix[x,y,z]:
                 # we found a block, next blocks will be removed
-                print "we found a block, next blocks will be removed"
+                logging.debug("BlockRemover:   Block found (%d, %d, %d), will remove the others" % (x,y,z))
                 found = True
             else:
                 # no block, go on
+                logging.debug("BlockRemover:   No block at (%d, %d, %d), continuing" % (x,y,z))
                 pass
-            x += 1
+            if x == 0 or y == 0 or z == 0:
+                break
+            x -= 1
             y -= 1
-            z += 1
-
+            z -= 1
+    logging.info('Removed %d invisible blocks' % removed_count)
     return matrix
 
 def remove_invisible_blocks_lazy(max_x, max_y, max_z, matrix):
@@ -169,6 +177,7 @@ if __name__ == '__main__':
     # FIXME: reliably get proper height from the y value
     h = max_z*bs + max_x*bs + 400
     data = nbtfile['Data']
+    logging.info('Matrix has %d blocks' % len(data))
 
     # set up Shoebot
     bot = shoebot.sbot.init_bot(outputfile=outfile) 
@@ -186,10 +195,6 @@ if __name__ == '__main__':
     matrix = np.empty((max_x+1, max_y+1, max_z+1))
     datamatrix = np.empty((max_x+1, max_y+1, max_z+1))
 
-    ##########
-    # matrix = remove_invisible_blocks_lazy(max_x, max_y, max_z, matrix)
-    # print 'Yay!'
-    ##########
 
     i = 0
     for x in range(width):
@@ -211,6 +216,12 @@ if __name__ == '__main__':
     # apply rotation
     matrix = rotate_matrix(matrix, args.rotation)
 
+    ##########
+    matrix = remove_invisible_blocks(max_x, max_y, max_z, matrix)
+    # print 'Yay!'
+    ##########
+
+    bcount = 0
     # we do a separate loop so we can draw them in order
     for y in range(max_y):
         for x in range(max_x):
@@ -222,9 +233,12 @@ if __name__ == '__main__':
                     i += 1
                     continue
                 if blocktype:
+                    logging.debug("Drawing block at (%d, %d, %d)" % (x, y, z))
                     px = origin_x + (x-z) * (2*bs)
                     pz = origin_y + (x+z) * bs - y*bs*2
                     draw_block(px, pz, blocktype, blockdata, bot)
+                    bcount += 1
                 i += 1
+    logging.info('Drawn %d blocks' % bcount)
     
     bot.finish()
