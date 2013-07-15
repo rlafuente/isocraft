@@ -22,24 +22,36 @@ BLOCKDEFS = {
   8: (51, 75, 255),    # water  
   9: (51, 75, 255),    # stationary water
   12: (210, 204, 148), # sand
+  13: (143, 143, 143),  # gravel
+  16: (143, 143, 143), # coal ore
   17: {                # wood
        0: '#6B5635',     # oak
        1: '#2F1E0B',     # spruce
        2: '#EBEAE0',     # birch
        3: '#57491A',     # jungle
+       4: '#6B5635',     # oak facing east/west
+       8: '#6B5635',     # oak facing north/south
+       9: '#2F1E0B',     # spruce facing north/south
+       14: '#EBEAE0',     # birch with only bark
       },
   18: {                # leaves
        0: '#C5D1C0',     # oak
        1: '#758E75',     # pine or spruce
        2: '#8B987D',     # birch
        3: '#145D02',     # jungle
+       7: '#145D02',     # jungle (not documented, but this somehow appeared)
+       8: '#145D02',     # jungle (not documented, but this somehow appeared)
+       9: '#145D02',     # jungle (not documented, but this somehow appeared)
+       14: '#145D02',     # jungle (not documented, but this somehow appeared)
       },
-  20: (170, 182, 184), # glass
+  20: (170, 182, 184, 127), # glass
   23: '#676767',       # dispenser
   24: {                # sandstone
        0: '#E3DBAB',     # normal
        1: '#D1C991',     # chiseled
        2: '#DDD4A5',     # smooth
+       7: '#DDD4A5',     # NOT DOCUMENTED, but appeared
+       9: '#DDD4A5',     # NOT DOCUMENTED, but appeared
       },
   25: (140, 86, 69),   # note block
   26: (177, 57, 53),   # bed
@@ -109,6 +121,7 @@ BLOCKDEFS = {
   76: (237, 94, 19),   # redstone torch (active)
   77: '#818181',       # stone button
   79: (133, 180, 255), # ice
+  80: (235, 235, 235), # snow block
   82: (119, 169, 255), # clay
   85: (170, 146, 109), # fence
   88: (91, 71, 58),    # soul sand
