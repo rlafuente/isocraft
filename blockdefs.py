@@ -151,10 +151,28 @@ BLOCKDEFS = {
   130: '#2A3C3E',      # ender chest
   131: (162, 132, 82), # tripwire hook
   134: (178, 144, 92), # spruce wood stairs
+  138: (133, 180, 255),# beacon
   139: (165, 165, 165),# cobblestone wall
   140: (125, 73, 58),  # flower pot
   143: (178, 144, 92), # wooden button
   145: '#423E3E',      # anvil
+  159: {               # stained clay (FIXME: values copied from wool, plz check and correct)
+       0: (236, 217, 219), # white
+       1: (221, 132, 74),  # orange
+       2: (182, 80, 190),  # violet
+       3: (104, 136, 200), # light blue
+       4: (198, 185, 46),  # yellow
+       5: (64, 172, 55),   # lime
+       6: '#a04d48',       # pink
+       7: (66, 66, 66),    # dark grey
+       8: (162, 168, 168), # light grey
+       9: (47, 112, 139),  # teal
+       10: (122, 58, 178), # purple
+       11: (43, 53, 133),  # dark blue
+       12: (87, 55, 34),   # brown
+       13: (55, 73, 28),   # green
+       14: (152, 53, 50),  # red
+       15: (28, 25, 25)},  # black
   }
 
 BLOCKS_WITH_DATA = [k for k in BLOCKDEFS if type(BLOCKDEFS[k]) == dict]

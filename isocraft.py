@@ -175,7 +175,7 @@ if __name__ == '__main__':
     max_x, max_y, max_z = (width, height, length)
     w = max_z*bs*2 + max_x*bs*2 + padding*4*bs
     # FIXME: reliably get proper height from the y value
-    h = max_z*bs + max_x*bs + 400
+    h = max_z*bs + max_x*bs + 800
     data = nbtfile['Data']
     logging.info('Matrix has %d blocks' % len(data))
 
@@ -187,7 +187,7 @@ if __name__ == '__main__':
     bot.background(255, 255, 255)
     # determine origin point
     origin_x = padding*2*bs + max_z*bs*2
-    origin_y = 400
+    origin_y = 800
 
     # create matrix and populate it with the block values
     # also make a list of block types
